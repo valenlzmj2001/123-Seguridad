@@ -1,0 +1,4 @@
+@import "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css";
+
+/* Mantenemos tus fuentes por si acaso */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700;900&family=Nunito:wght@400;600;700;900&display=swap');
