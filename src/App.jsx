@@ -1376,8 +1376,9 @@ export default function App() {
 
     return (
         <div className="min-h-screen flex items-start justify-center" style={{ backgroundColor: "#E8E9ED" }}>
+            {/* CAMBIO AQUÍ: Cambiado min-h-screen por h-screen y flex-col para controlar el scroll interno */}
             <div
-                className="relative w-full max-w-sm min-h-screen flex flex-col bg-white shadow-2xl overflow-hidden"
+                className="relative w-full max-w-sm h-screen flex flex-col bg-white shadow-2xl overflow-hidden"
                 style={{ fontFamily: "'DM Sans','Nunito',system-ui,sans-serif" }}
             >
                 {/* ── Alert Modal ───────────────────────────────────────────── */}
@@ -1385,7 +1386,7 @@ export default function App() {
 
                 {/* ── Header ────────────────────────────────────────────────── */}
                 <header
-                    className="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-gray-100 px-5 py-4 flex items-center justify-between"
+                    className="sticky top-0 z-20 bg-white/90 backdrop-blur border-b border-gray-100 px-5 py-4 flex items-center justify-between flex-shrink-0"
                     style={{ paddingTop: "env(safe-area-inset-top, 16px)" }}
                 >
                     <div className="flex items-center gap-2.5">
@@ -1415,7 +1416,6 @@ export default function App() {
                         </button>
                     ) : (
                         <div className="flex items-center gap-3">
-                            {/* Avatar → opens profile */}
                             <button
                                 onClick={() => setView(isProfile ? "app" : "profile")}
                                 className="w-9 h-9 rounded-full flex items-center justify-center text-white text-xs font-black shadow-sm ring-2 ring-transparent hover:ring-blue-300 transition-all"
@@ -1425,9 +1425,7 @@ export default function App() {
                             </button>
                             {!isProfile && (
                                 <button
-                                    onClick={() => {
-                                        setView("public");
-                                    }}
+                                    onClick={() => setView("public")}
                                     className="text-gray-400 hover:text-gray-600 transition-colors"
                                 >
                                     <LogOut size={17} />
@@ -1438,7 +1436,10 @@ export default function App() {
                 </header>
 
                 {/* ── Content ───────────────────────────────────────────────── */}
-                <main className="flex-1 overflow-y-auto px-5 pt-5" style={{ paddingBottom: showNav ? "80px" : "24px" }}>
+                <main
+                    className="flex-1 overflow-y-auto px-5 pt-5"
+                    style={{ paddingBottom: showNav ? "100px" : "32px" }}
+                >
                     {view === "public" && <DirectoryScreen loggedIn={false} />}
                     {view === "login" && (
                         <LoginScreen onLogin={() => setView("app")} onGoRegister={() => setView("register")} />
@@ -1455,9 +1456,10 @@ export default function App() {
 
                 {/* ── Bottom nav ────────────────────────────────────────────── */}
                 {showNav && (
+                    /* CAMBIO AQUÍ: Añadido left-1/2, bottom-0 y flex-shrink-0 para bloquear el nav en móviles */
                     <nav
-                        className="fixed bottom-0 -translate-x-1/2 w-full max-w-sm z-20 bg-white backdrop-blur border-t border-gray-100"
-                        style={{ paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+                        className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm z-20 bg-white border-t border-gray-100 flex-shrink-0 shadow-[0_-4px_12px_rgba(0,0,0,0.03)]"
+                        style={{ paddingBottom: "env(safe-area-inset-bottom, 12px)" }}
                     >
                         <div className="flex items-center">
                             {TABS.map(({ id, icon: Icon, label }) => {
@@ -1468,15 +1470,15 @@ export default function App() {
                                         <button
                                             key={id}
                                             onClick={() => setAlertOpen(true)}
-                                            className="flex-1 flex flex-col items-center justify-center py-3 gap-1 -mt-4"
+                                            className="flex-1 flex flex-col items-center justify-center py-3 gap-1 -mt-5"
                                         >
                                             <div
-                                                className="w-16 h-16 rounded-full flex items-center justify-center shadow-xl border-4 border-red-300 active:scale-95 transition-transform"
+                                                className="w-16 h-16 rounded-full flex items-center justify-center shadow-xl border-4 border-white active:scale-95 transition-transform"
                                                 style={{ backgroundColor: C.red }}
                                             >
                                                 <Icon size={26} className="text-white" />
                                             </div>
-                                            <span className="text-xs font-bold mt-1" style={{ color: C.dark }}>
+                                            <span className="text-[11px] font-bold mt-1" style={{ color: C.dark }}>
                                                 {label}
                                             </span>
                                         </button>
@@ -1492,7 +1494,7 @@ export default function App() {
                                     >
                                         <Icon size={20} style={{ color: active ? C.blue : "#9ca3af" }} />
                                         <span
-                                            className="text-xs font-semibold"
+                                            className="text-[11px] font-semibold"
                                             style={{ color: active ? C.blue : "#9ca3af" }}
                                         >
                                             {label}
