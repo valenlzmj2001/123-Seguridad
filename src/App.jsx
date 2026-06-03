@@ -54,7 +54,7 @@ const C = {
     dark: "#282F3F",
     bg: "#F3F3F5",
     white: "#FFFFFF",
-    red: "#FF0000",
+    red: "#f21616",
 };
 
 // ─── Utility ──────────────────────────────────────────────────────────────────
@@ -78,16 +78,20 @@ const DEFAULT_PROFILE = {
 // ─── Atoms ────────────────────────────────────────────────────────────────────
 const Badge = ({ status }) => {
     const map = {
-        Enviado: "bg-blue-100 text-blue-600",
-        Procesando: "bg-orange-100 text-orange-600",
-        Atendido: "bg-green-100 text-green-600",
+        Enviado: { bg: "#DBEAFE", text: "#2563EB" }, // blue-100 y blue-600
+        Procesando: { bg: "#FEF3C7", text: "#D97706" }, // amber-100 y amber-600
+        Atendido: { bg: "#DCFCE7", text: "#16A34A" }, // green-100 y green-600
     };
+
+    const colors = map[status] || { bg: "#F3F4F6", text: "#4B5563" };
+
     return (
         <span
-            className={cls(
-                "text-xs font-semibold px-2.5 py-1 rounded-full",
-                map[status] || "bg-gray-100 text-gray-500",
-            )}
+            className="text-xs font-medium px-2.5 py-1 rounded-full inline-block"
+            style={{
+                backgroundColor: colors.bg,
+                color: colors.text,
+            }}
         >
             {status}
         </span>
@@ -355,7 +359,7 @@ const DirectoryScreen = ({ loggedIn, Toast }) => {
                     <p className="text-sm text-gray-400 mt-1">Toca para llamar de inmediato</p>
                 </div>
                 <button
-                    className="relative w-32 h-32 rounded-full py-6 text-white flex flex-col items-center gap-2 shadow-lg active:scale-98 transition-transform overflow-hidden"
+                    className="relative w-32 h-32 rounded-full py-6 text-white flex flex-col items-center gap-2 border-8 border-red-300 shadow-lg active:scale-98 transition-transform overflow-hidden"
                     style={{ backgroundColor: C.red }}
                 >
                     <div
@@ -366,8 +370,8 @@ const DirectoryScreen = ({ loggedIn, Toast }) => {
                         style={{ backgroundColor: "white" }}
                     />
                     <div className="flex flex-col items-center gap-2 z-10">
-                        <PhoneCall size={28} />
-                        <span className="text-xl font-black tracking-tight">Llamar 123</span>
+                        <PhoneCall size={36} />
+                        <span className="text-2xl font-black tracking-tight">123</span>
                     </div>
                 </button>
                 <p className="text-xs text-gray-400 text-center max-w-xs">
@@ -1044,14 +1048,14 @@ const Section = ({ title, icon: Icon, children, action }) => (
 // ─── Alert Modal ──────────────────────────────────────────────────────────────
 const AlertModal = ({ open, onClose }) => {
     const [phase, setPhase] = useState("counting"); // counting | sent
-    const [count, setCount] = useState(5);
+    const [count, setCount] = useState(10);
     const timerRef = useRef(null);
 
     // Reset every time the modal opens
     useEffect(() => {
         if (!open) return;
         setPhase("counting");
-        setCount(5);
+        setCount(10);
     }, [open]);
 
     useEffect(() => {
@@ -1077,7 +1081,7 @@ const AlertModal = ({ open, onClose }) => {
     // SVG circle progress (countdown ring)
     const radius = 72;
     const circ = 2 * Math.PI * radius;
-    const progress = phase === "counting" ? count / 5 : 0;
+    const progress = phase === "counting" ? count / 10 : 0;
     const dash = circ * progress;
 
     if (!open) return null;
@@ -1255,7 +1259,7 @@ const ReportsScreen = () => {
     };
     return (
         <div className="flex flex-col gap-6 pb-8">
-            <div className="bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col gap-4">
+            <div className="flex flex-col gap-4">
                 <p className="font-bold text-md" style={{ color: C.dark }}>
                     Nuevo Reporte
                 </p>
@@ -1320,8 +1324,8 @@ const ReportsScreen = () => {
                     )}
                 </Btn>
             </div>
-            <div className="flex flex-col gap-3">
-                <p className="font-bold text-sm" style={{ color: C.dark }}>
+            <div className="mt-6 bg-white rounded-3xl p-5 shadow-sm border border-gray-100 flex flex-col gap-4 flex flex-col gap-3">
+                <p className="font-bold text-md" style={{ color: C.dark }}>
                     Mis Reportes
                 </p>
                 {reports.map((r) => (
@@ -1356,7 +1360,7 @@ export default function App() {
     const TABS = [
         { id: "call", icon: Phone, label: "Llamar" },
         { id: "alert", icon: Bell, label: "Alerta" },
-        { id: "report", icon: FileText, label: "Emergencia" },
+        { id: "report", icon: FileText, label: "Reportar" },
     ];
 
     const isApp = view === "app";
@@ -1386,12 +1390,7 @@ export default function App() {
                 >
                     <div className="flex items-center gap-2.5">
                         {isProfile ? (
-                            <button
-                                onClick={() => setView("app")}
-                                className="flex items-center gap-1.5 -ml-1"
-                                style={{ color: C.blue }}
-                            >
-                                <ArrowLeft size={18} />
+                            <button className="flex items-center gap-1.5 -ml-1" style={{ color: C.blue }}>
                                 <span className="font-bold text-sm">Mi Perfil</span>
                             </button>
                         ) : (
@@ -1409,10 +1408,10 @@ export default function App() {
                     {!isApp && !isProfile ? (
                         <button
                             onClick={() => setView("login")}
-                            className="w-10 h-10 flex items-center justify-center font-bold border-2 rounded-full hover:bg-blue-50 transition-colors"
+                            className="flex items-center justify-center py-1 px-4 border-2 rounded-full hover:bg-blue-50 transition-colors"
                             style={{ color: C.blue, borderColor: C.blue }}
                         >
-                            <User size={18} />
+                            Ingresar
                         </button>
                     ) : (
                         <div className="flex items-center gap-3">
