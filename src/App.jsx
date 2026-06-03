@@ -1458,7 +1458,7 @@ export default function App() {
                 {showNav && (
                     /* CAMBIO AQUÍ: Añadido left-1/2, bottom-0 y flex-shrink-0 para bloquear el nav en móviles */
                     <nav
-                        className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-sm z-20 bg-white border-t border-gray-100 flex-shrink-0 shadow-[0_-4px_12px_rgba(0,0,0,0.03)]"
+                        className="fixed bottom-0 -translate-x-1/2 w-full max-w-sm z-20 bg-white border-t border-gray-100 flex-shrink-0 shadow-[0_-4px_12px_rgba(0,0,0,0.03)]"
                         style={{ paddingBottom: "env(safe-area-inset-bottom, 12px)" }}
                     >
                         <div className="flex items-center">
