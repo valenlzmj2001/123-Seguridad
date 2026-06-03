@@ -5,12 +5,12 @@
   "type": "module",
   "homepage": "https://valenlzmj2001.github.io/<123-Seguridad>",
   "scripts": {
+    "lint": "eslint .",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist", 
     "dev": "vite",
     "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "preview": "vite preview"
   },
   "dependencies": {
     "lucide-react": "^1.17.0",
