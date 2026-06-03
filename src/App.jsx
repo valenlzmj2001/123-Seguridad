@@ -1473,7 +1473,7 @@ export default function App() {
                                             className="flex-1 flex flex-col items-center justify-center py-3 gap-1 -mt-5"
                                         >
                                             <div
-                                                className="w-16 h-16 rounded-full flex items-center justify-center shadow-xl border-4 border-white active:scale-95 transition-transform"
+                                                className="w-16 h-16 rounded-full flex items-center justify-center shadow-xl border-4 border-red-300 active:scale-95 transition-transform"
                                                 style={{ backgroundColor: C.red }}
                                             >
                                                 <Icon size={26} className="text-white" />
